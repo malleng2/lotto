@@ -1,0 +1,120 @@
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>번호 추출기</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding-bottom: 120px;
+        }
+        .container {
+            background-color: #f0f0f0;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
+        .numbers {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+        .number {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(145deg, #f0f0f0, #e6e6e6);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 10px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            box-shadow: 5px 5px 15px #d1d1d1, -5px -5px 15px #ffffff;
+        }
+        button {
+            background: linear-gradient(145deg, #f0f0f0, #e6e6e6);
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 5px 5px 10px #d1d1d1, -5px -5px 10px #ffffff;
+        }
+        button:hover {
+            background: linear-gradient(145deg, #e6e6e6, #f0f0f0);
+        }
+        button:active {
+            box-shadow: inset 5px 5px 10px #d1d1d1, inset -5px -5px 10px #ffffff;
+        }
+        .ad-container {
+            position: fixed;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>번호 추출기</h1>
+        <div class="numbers" id="numberContainer"></div>
+        <button id="generateBtn">새 번호 추출하기</button>
+    </div>
+    
+    <div class="ad-container">
+        <ins class="kakao_ad_area" style="display:none;"
+            data-ad-unit="DAN-dH2JfZg4FMJyQ2B3"
+            data-ad-width="320"
+            data-ad-height="100"></ins>
+        <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
+    </div>
+
+    <script>
+        function generateNumbers() {
+            let numbers = [];
+            while(numbers.length < 6){
+                let r = Math.floor(Math.random() * 45) + 1;
+                if(numbers.indexOf(r) === -1) numbers.push(r);
+            }
+            return numbers.sort((a, b) => a - b);
+        }
+        function displayNumbers(numbers) {
+            let container = $('#numberContainer');
+            container.empty();
+            numbers.forEach((num, index) => {
+                container.append(`<div class="number">${num}</div>`);
+                if((index + 1) % 3 === 0 && index !== 5) {
+                    container.append('<br>');
+                }
+            });
+        }
+        $(document).ready(function() {
+            let numbers = generateNumbers();
+            displayNumbers(numbers);
+            $('#generateBtn').click(function() {
+                numbers = generateNumbers();
+                displayNumbers(numbers);
+            });
+        });
+    </script>
+</body>
+</html>
